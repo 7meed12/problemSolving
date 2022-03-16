@@ -239,15 +239,73 @@ int Search(int[] nums, int target)
     {
         int middle = (start + end) / 2;
         if (nums[middle] == target) return ++middle;
-        if (nums[middle] < target) end = middle - 1;
-        else start = middle + 1;
+        if (target < nums[middle]) end = middle - 1;
+        else start = middle ;
         return ++middle;
 
     }
     return -1;
 
 }
-//int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9 }
-//;
+
+ int SearchInsert(int[] nums, int target)
+{
+    int start = 0;
+    int end = nums.Length-1;
+  
+    while(start < end)
+    {
+        int mid = start + (end - start) / 2;
+        if(nums[mid] == target) return mid;
+        if (target > nums[mid])
+        
+            start = mid + 1; // mid is excluded
+        
+        else
+        
+            end = mid; // mid is included
+        
+    }
+  
+        if (nums[start] < target) return end + 1; else return start;
+        
+}
+
+
+int[] arr = { -11, 3, 4, 5, 7, 9 };
+//square ints in array and then sort them 
+int[] SortedSquares(int[] nums)
+{
+    int l = 0; int r = nums.Length - 1;
+    int[] result = new int[nums.Length];
+    for (int i = nums.Length-1; i >= 0; i--)
+    {
+        if (Convert.ToInt32(Math.Pow(nums[l],2)) > Convert.ToInt32(Math.Pow(nums[r], 2)))
+             result[i] = Convert.ToInt32(Math.Pow(nums[l++], 2));
+        else result[i] = Convert.ToInt32(Math.Pow(nums[r--], 2));
+    }
+    return result;
+}
+
+ // rotate arra with a shift of k
+ void Rotate(int[] nums, int k)
+{
+    k %= nums.Length; // set the mirror point of the array 
+    reverse(nums, 0, nums.Length - 1); // reverse the whole array 
+    reverse(nums, 0, k - 1); // reverse the fisrt half of the array
+    reverse(nums, k, nums.Length - 1); // reverse the second half 
+}
+
+ void reverse(int[] nums, int start, int end)
+{
+    while (start < end)
+    {
+        int temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
+        start++;
+        end--;
+    }
+}
 
 
